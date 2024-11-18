@@ -127,6 +127,7 @@ class Player:
                 Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle}
             }
         )
+
         self.recharge_timer = None
         self.recharge_delay = 2.0
 
@@ -134,6 +135,8 @@ class Player:
         self.cooldown_collision = 2.0
 
         self.heart = h
+
+        self.colliding_with_grass = None
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
@@ -186,6 +189,8 @@ class Player:
 
     def handle_collision(self, group, other):
         if is_index_p_1():
+            if group == 'player:grass':
+                self.colliding_with_grass = other
             if group == 'sheep:player':
                 current_time = time.time()
                 if current_time - self.collision_time >= self.cooldown_collision:

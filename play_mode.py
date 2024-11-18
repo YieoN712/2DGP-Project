@@ -44,6 +44,7 @@ def init():
     bg = BackGround.BackGround(player)
     game_world.add_object(bg, 0)
 
+    # collision
     for rabbit in rabbits:
         game_world.add_collision_pair('rabbit:fire', rabbit, None)
 
@@ -52,7 +53,7 @@ def init():
         game_world.add_collision_pair('sheep:fire', sheep, None)
 
     for grass in grasses:
-        game_world.add_collision_pair('grass:player', grass, player)
+        game_world.add_collision_pair('player:grass', player, grass)
 
 def finish():
     game_world.clear()
