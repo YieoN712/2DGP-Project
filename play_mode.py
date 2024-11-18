@@ -1,12 +1,14 @@
 from pico2d import *
-
 import background
 import game_framework
 import game_world
 import player as Player
 import background as BackGround
 import title_mode
+from fire import set_index_fire
+from item import *
 from monster import *
+from player import set_index_player
 
 
 def handle_events():
@@ -23,10 +25,15 @@ def handle_events():
 
 
 def init():
-    global player
+    global player, heart
 
-    player = Player.Player()
+    heart = Heart()
+    player = Player.Player(heart)
     game_world.add_object(player, 1)
+    game_world.add_object(heart, 1)
+
+    grasses = [Grass() for _ in range(5)]
+    game_world.add_objects(grasses, 1)
 
     sheeps = [Sheep() for _ in range(5)]
     game_world.add_objects(sheeps, 1)
@@ -44,6 +51,9 @@ def init():
         game_world.add_collision_pair('sheep:player',sheep, player)
         game_world.add_collision_pair('sheep:fire', sheep, None)
 
+    for grass in grasses:
+        game_world.add_collision_pair('grass:player', grass, player)
+
 def finish():
     game_world.clear()
 
@@ -51,6 +61,8 @@ def finish():
 def update():
     bg = game_world.world[0][0]
     set_visibility(bg.current_index)
+    set_index_fire(bg.current_index)
+    set_index_player(bg.current_index)
 
     game_world.update()
     game_world.handle_collisions()

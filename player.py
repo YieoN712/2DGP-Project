@@ -1,5 +1,7 @@
-from pico2d import  *
+import time
 
+from pico2d import  *
+import background as bg
 import game_framework
 import game_world
 from fire import Fire
@@ -15,6 +17,13 @@ RUN_SPEED_PPS = RUN_SPEED_MPS * PIXEL_PER_METER
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAME_PER_ACTION = 7
+
+def set_index_player(index):
+    global bg_index
+    bg_index = (index == 1)
+
+def is_index_1():
+    return bg_index
 
 
 class Idle:
@@ -101,13 +110,14 @@ class Run:
 
 class Player:
 
-    def __init__(self):
+    def __init__(self, h):
         self.x, self.y = 950, 75
         self.face_dir = -1
         self.font = load_font('ENCR10B.TTF', 16)
         self.max_mana = 5
         self.mana = self.max_mana
         self.image = load_image('image/player.png')
+
         self.state_machine = StateMachine(self)
         self.state_machine.start(Idle)
         self.state_machine.set_transitions(
@@ -119,6 +129,11 @@ class Player:
         )
         self.recharge_timer = None
         self.recharge_delay = 2.0
+
+        self.collision_time = 0
+        self.cooldown_collision = 2.0
+
+        self.heart = h
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
@@ -170,4 +185,9 @@ class Player:
             return self.x - 20, self.y - 50, self.x + 15, self.y + 40
 
     def handle_collision(self, group, other):
-        pass
+        if is_index_1():
+            if group == 'sheep:player':
+                current_time = time.time()
+                if current_time - self.collision_time >= self.cooldown_collision:
+                    self.heart.decrease_heart()
+                    self.collision_time = current_time

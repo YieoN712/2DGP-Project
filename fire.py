@@ -2,6 +2,12 @@ from pico2d import *
 
 import game_world
 
+def set_index_fire(index):
+    global bg_index
+    bg_index = (index == 1)
+
+def is_index_1():
+    return bg_index
 
 class Fire:
     image = None
@@ -23,13 +29,14 @@ class Fire:
         frame_speed = 0.1
         self.frame = (self.frame + frame_speed) % self.total_frame
 
-        if self.x < 50 or self.x > 1440 - 50:
+        if self.x < 20 or self.x > 1440 - 50:
             game_world.remove_object(self)
 
     def get_bb(self):
         return self.x - 10, self.y - 20,self.x + 10,self.y
 
     def handle_collision(self, group, other):
-        if group == 'rabbit:fire' or group == 'sheep:fire':
-            print("fire")
-            game_world.remove_object(self)
+        if is_index_1():
+            if group == 'rabbit:fire' or group == 'sheep:fire':
+                print("fire")
+                game_world.remove_object(self)

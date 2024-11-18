@@ -64,9 +64,10 @@ class Rabbit:
             return self.x - 40, self.y - 12, self.x + 40, self.y + 38
 
     def handle_collision(self, group, other):
-        if group == 'rabbit:fire':
-            print("Rabbit hit by fire")
-            game_world.remove_object(self)
+        if is_visible():
+            if group == 'rabbit:fire':
+                print("Rabbit hit by fire")
+                game_world.remove_object(self)
 
 
 class Sheep:
@@ -105,11 +106,10 @@ class Sheep:
         return  self.x - 40, self.y - 35, self.x + 40, self.y + 40
 
     def handle_collision(self, group, other):
-        if group == 'sheep:fire' and self.alpha == 1.0:
-            print("sheep hit by fire")
-            self.alpha = 0.5
-        elif group == 'sheep:fire' and self.alpha == 0.5:
-            print("sheep hit by fire")
-            game_world.remove_object(self)
-        elif group == 'sheep:player':
-            pass
+        if is_visible():
+            if group == 'sheep:fire' and self.alpha == 1.0:
+                print("sheep hit by fire")
+                self.alpha = 0.5
+            elif group == 'sheep:fire' and self.alpha == 0.5:
+                print("sheep hit by fire")
+                game_world.remove_object(self)
