@@ -33,9 +33,9 @@ class Fire:
         frame_speed = 0.1
         self.frame = (self.frame + frame_speed) % self.total_frame
 
-        if self.x < 20 or self.x > 1440 - 20:
+        if self.p - self.x > 250 or self.x - self.p > 250:
             game_world.remove_object(self)
-        elif self.p - self.x > 250:
+        elif self.x < 0 or self.x > 1440 - 20:
             game_world.remove_object(self)
 
     def get_bb(self):
