@@ -1,5 +1,7 @@
 import random
 from pico2d import *
+
+import background
 import game_framework
 
 PIXEL_PER_METER = (10.0 / 0.5)
@@ -12,6 +14,15 @@ RUN_SPEED_PPS = RUN_SPEED_MPS * PIXEL_PER_METER
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAME_PER_ACTION = 4
+
+# _visible = False
+
+def set_visibility(index):
+    global _visible
+    _visible = (index == 1)
+
+def is_visible():
+    return _visible
 
 class Rabbit:
     def __init__(self):
@@ -32,10 +43,21 @@ class Rabbit:
 
 
     def draw(self):
-        if self.dir < 0:
-            self.image.clip_composite_draw(int(self.frame) * (504 // 4), 0, 126, 180, 0, 'h', self.x, self.y, self.size, self.size)
+        if is_visible():
+            if self.dir < 0:
+                self.image.clip_composite_draw(int(self.frame) * (504 // 4), 0, 126, 180, 0, 'h', self.x, self.y, self.size, self.size)
+            else:
+                self.image.clip_draw(int(self.frame) * (504 // 4), 0, 126, 180,self.x, self.y, self.size, self.size)
+
+            # draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        if int(self.frame) == 0 or int(self.frame) == 3:
+            return self.x + 40, self.y, self.x - 35, self.y - 45
+        elif int(self.frame) == 1:
+            return self.x + 40, self.y + 45, self.x - 35, self.y - 15
         else:
-            self.image.clip_draw(int(self.frame) * (504 // 4), 0, 126, 180,self.x, self.y, self.size, self.size)
+            return self.x + 40, self.y + 38, self.x - 40, self.y - 12
 
 
 class Sheep:
@@ -57,7 +79,14 @@ class Sheep:
 
 
     def draw(self):
-        if self.dir > 0:
-            self.image.clip_composite_draw(int(self.frame) * (320 // 4), 0, (320 // 4), 80, 0, 'h', self.x, self.y, self.size, self.size)
-        else:
-            self.image.clip_draw(int(self.frame) * (320 // 4), 0, (320 // 4), 80,self.x, self.y, self.size, self.size)
+        if is_visible():
+            if self.dir > 0:
+                self.image.clip_composite_draw(int(self.frame) * (320 // 4), 0, (320 // 4), 80, 0, 'h', self.x, self.y, self.size, self.size)
+            else:
+                self.image.clip_draw(int(self.frame) * (320 // 4), 0, (320 // 4), 80,self.x, self.y, self.size, self.size)
+
+        # draw_rectangle(*self.get_bb())
+
+
+    def get_bb(self):
+        return self.x + 40, self.y + 40, self.x - 40, self.y - 35

@@ -42,7 +42,11 @@ def finish():
 
 
 def update():
+    bg = game_world.world[0][0]
+    set_visibility(bg.current_index)
+    
     game_world.update()
+    game_world.handle_collisions()
 
 
 def draw():

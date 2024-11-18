@@ -7,7 +7,7 @@ class BackGround:
             load_image('image/background_main.jpg'),
             load_image('image/background_hunt.jpg')
         ]
-        self.current_index = 0
+        self.current_index = 1
         self.show_message = False
         self.p = player
 

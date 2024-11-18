@@ -27,4 +27,4 @@ class Fire:
             game_world.remove_object(self)
 
     def get_bb(self):
-        return self.x - 10, self.y - 20,self.x + 10,self.y,
+        return self.x - 10, self.y - 20,self.x + 10,self.y
