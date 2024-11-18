@@ -75,13 +75,14 @@ class Sheep:
         self.x, self.y = random.randint(1420 - 950, 1420), 75
         self.image = load_image('image/sheep.png')
         self.frame = 0
+        self.speed = 2  # 클수록 느림
         self.dir = random.choice([-1, 1])
         self.size = 100
         self.alpha = 1.0
 
     def update(self):
         self.frame = (self.frame + FRAME_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAME_PER_ACTION
-        self.x += (RUN_SPEED_PPS * self.dir * game_framework.frame_time) / 2
+        self.x += (RUN_SPEED_PPS * self.dir * game_framework.frame_time) / self.speed
         if self.x > 1400:
             self.dir = -1
         elif self.x < 800:
@@ -110,6 +111,7 @@ class Sheep:
             if group == 'sheep:fire' and self.alpha == 1.0:
                 print("sheep hit by fire")
                 self.alpha = 0.5
+                self.speed = 0.3
             elif group == 'sheep:fire' and self.alpha == 0.5:
                 print("sheep hit by fire")
                 game_world.remove_object(self)
