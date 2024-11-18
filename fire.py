@@ -21,7 +21,7 @@ class Fire:
         self.p = p_x
 
     def draw(self):
-        if self.velocity < 0:
+        if self.velocity > 0:
             self.image.clip_draw(int(self.frame) * 102, 0, 102, 54, self.x, self.y - 10, 50, 50)
         else:
             self.image.clip_composite_draw(int(self.frame) * 102, 0, 102, 54, 0, 'h', self.x, self.y - 10, 50, 50)
@@ -33,7 +33,7 @@ class Fire:
         frame_speed = 0.1
         self.frame = (self.frame + frame_speed) % self.total_frame
 
-        if self.x < 20 or self.x > 1440 - 50:
+        if self.x < 20 or self.x > 1440 - 20:
             game_world.remove_object(self)
         elif self.p - self.x > 250:
             game_world.remove_object(self)
