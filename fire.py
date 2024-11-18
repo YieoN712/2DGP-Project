@@ -15,7 +15,7 @@ class Fire:
 
     def draw(self):
         self.image.clip_draw(int(self.frame) * 102, 0, 102, 54, self.x, self.y - 10, 50, 50)
-        # draw_rectangle(*self.get_bb())
+        draw_rectangle(*self.get_bb())
 
     def update(self):
         self.x += self.velocity
@@ -28,3 +28,8 @@ class Fire:
 
     def get_bb(self):
         return self.x - 10, self.y - 20,self.x + 10,self.y
+
+    def handle_collision(self, group, other):
+        if group == 'rabbit:fire' or group == 'sheep:fire':
+            print("fire")
+            game_world.remove_object(self)

@@ -1,3 +1,5 @@
+from fire import Fire
+
 world = [[] for _ in range(4)]
 collision_pairs = {}
 
@@ -46,6 +48,8 @@ def remove_object(o):
     for layer in world:
         if o in layer:
             layer.remove(o)
+            remove_collision_object(o)
+            del o
             return
 
     raise ValueError('Cannot delete non existing object')
@@ -71,5 +75,6 @@ def handle_collisions():
         for a in pairs[0]:
             for b in pairs[1]:
                 if collide(a, b):
+                    # print("collision")
                     a.handle_collision(group, b)
                     b.handle_collision(group, a)

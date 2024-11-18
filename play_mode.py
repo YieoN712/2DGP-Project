@@ -28,14 +28,21 @@ def init():
     player = Player.Player()
     game_world.add_object(player, 1)
 
-    sheep = [Sheep() for _ in range(5)]
-    game_world.add_objects(sheep, 1)
+    sheeps = [Sheep() for _ in range(5)]
+    game_world.add_objects(sheeps, 1)
 
-    rabbit = [Rabbit() for _ in range(8)]
-    game_world.add_objects(rabbit, 1)
+    rabbits = [Rabbit() for _ in range(8)]
+    game_world.add_objects(rabbits, 1)
 
     bg = BackGround.BackGround(player)
     game_world.add_object(bg, 0)
+
+    for rabbit in rabbits:
+        game_world.add_collision_pair('rabbit:fire', rabbit, None)
+
+    for sheep in sheeps:
+        game_world.add_collision_pair('sheep:player',sheep, player)
+        game_world.add_collision_pair('sheep:fire', sheep, None)
 
 def finish():
     game_world.clear()
@@ -44,7 +51,7 @@ def finish():
 def update():
     bg = game_world.world[0][0]
     set_visibility(bg.current_index)
-    
+
     game_world.update()
     game_world.handle_collisions()
 

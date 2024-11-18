@@ -141,6 +141,8 @@ class Player:
             self.mana -= 1
             fire = Fire(self.x, self.y, self.face_dir * 5)
             game_world.add_object(fire, 1)
+            game_world.add_collision_pair('rabbit:fire', None, fire)
+            game_world.add_collision_pair('sheep:fire', None, fire)
 
 
     def draw(self):
@@ -166,3 +168,6 @@ class Player:
             return self.x - 20, self.y - 45, self.x + 70, self.y - 15
         elif self.state_machine.cur_state == Run:
             return self.x - 20, self.y - 50, self.x + 15, self.y + 40
+
+    def handle_collision(self, group, other):
+        pass
