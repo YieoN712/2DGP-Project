@@ -12,15 +12,19 @@ def is_index_1():
 class Fire:
     image = None
 
-    def __init__(self, x = 400, y = 300, velocity = 1):
+    def __init__(self, x = 400, y = 300, velocity = 1, p_x = 0):
         if Fire.image == None:
             Fire.image = load_image('image/fire.png')
         self.x, self.y, self.velocity = x, y, velocity
         self.frame = 0
         self.total_frame = 12
+        self.p = p_x
 
     def draw(self):
-        self.image.clip_draw(int(self.frame) * 102, 0, 102, 54, self.x, self.y - 10, 50, 50)
+        if self.velocity < 0:
+            self.image.clip_draw(int(self.frame) * 102, 0, 102, 54, self.x, self.y - 10, 50, 50)
+        else:
+            self.image.clip_composite_draw(int(self.frame) * 102, 0, 102, 54, 0, 'h', self.x, self.y - 10, 50, 50)
         draw_rectangle(*self.get_bb())
 
     def update(self):
@@ -30,6 +34,8 @@ class Fire:
         self.frame = (self.frame + frame_speed) % self.total_frame
 
         if self.x < 20 or self.x > 1440 - 50:
+            game_world.remove_object(self)
+        elif self.p - self.x > 250:
             game_world.remove_object(self)
 
     def get_bb(self):

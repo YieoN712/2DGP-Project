@@ -29,17 +29,17 @@ def init():
 
     heart = Heart()
     player = Player.Player(heart)
-    game_world.add_object(player, 1)
+    game_world.add_object(player, 2)
     game_world.add_object(heart, 1)
 
     grasses = [Grass() for _ in range(5)]
     game_world.add_objects(grasses, 1)
 
     sheeps = [Sheep() for _ in range(5)]
-    game_world.add_objects(sheeps, 1)
+    game_world.add_objects(sheeps, 2)
 
     rabbits = [Rabbit() for _ in range(8)]
-    game_world.add_objects(rabbits, 1)
+    game_world.add_objects(rabbits, 2)
 
     bg = BackGround.BackGround(player)
     game_world.add_object(bg, 0)
@@ -63,6 +63,7 @@ def update():
     set_visibility(bg.current_index)
     set_index_fire(bg.current_index)
     set_index_player(bg.current_index)
+    set_index_grass(bg.current_index)
 
     game_world.update()
     game_world.handle_collisions()

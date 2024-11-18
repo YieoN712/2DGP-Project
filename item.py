@@ -7,7 +7,7 @@ def set_index_grass(index):
     global index_g
     index_g = (index == 1)
 
-def is_index_1():
+def is_index_grass_1():
     return index_g
 
 class Heart:
@@ -35,8 +35,14 @@ class Grass:
         self.image = load_image('image/grass.png')
 
     def draw(self):
-        if is_index_1():
-                self.image.draw(self.x, self.y, 490 // 2, 706 // 2)
+        if is_index_grass_1():
+                self.image.draw(self.x, self.y, 490 // 10, 706 // 10)
 
     def update(self):
+        pass
+
+    def get_bb(self):
+        return self.x - 20, self.y - 30, self.x + 20, self.y + 30
+
+    def handle_collision(self, group, other):
         pass

@@ -22,7 +22,7 @@ def set_index_player(index):
     global bg_index
     bg_index = (index == 1)
 
-def is_index_1():
+def is_index_p_1():
     return bg_index
 
 
@@ -154,7 +154,7 @@ class Player:
     def fire(self):
         if self.mana > 0:
             self.mana -= 1
-            fire = Fire(self.x, self.y, self.face_dir * 5)
+            fire = Fire(self.x, self.y, self.face_dir * 5, self.x)
             game_world.add_object(fire, 1)
             game_world.add_collision_pair('rabbit:fire', None, fire)
             game_world.add_collision_pair('sheep:fire', None, fire)
@@ -185,7 +185,7 @@ class Player:
             return self.x - 20, self.y - 50, self.x + 15, self.y + 40
 
     def handle_collision(self, group, other):
-        if is_index_1():
+        if is_index_p_1():
             if group == 'sheep:player':
                 current_time = time.time()
                 if current_time - self.collision_time >= self.cooldown_collision:
