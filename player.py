@@ -136,7 +136,7 @@ class Player:
 
         self.heart = h
 
-        self.colliding_with_grass = None
+        self.grass_count = 0
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
@@ -189,8 +189,6 @@ class Player:
 
     def handle_collision(self, group, other):
         if is_index_p_1():
-            if group == 'player:grass':
-                self.colliding_with_grass = other
             if group == 'sheep:player':
                 current_time = time.time()
                 if current_time - self.collision_time >= self.cooldown_collision:

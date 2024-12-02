@@ -3,6 +3,7 @@ from random import random, randint
 from pico2d import *
 
 import game_world
+import play_mode
 
 
 def set_index_grass(index):
@@ -45,8 +46,7 @@ class Grass:
         pass
 
     def handle_event(self, event):
-        if event.type == SDL_KEYDOWN and event.key == SDLK_f:
-            game_world.remove_object(self)
+        pass
 
     def get_bb(self):
         return self.x - 20, self.y - 30, self.x + 20, self.y + 30
@@ -54,3 +54,5 @@ class Grass:
     def handle_collision(self, group, other):
         if is_index_grass_1() and group == 'player:grass':
             self.font.draw(self.x - 25, self.y + 50, f'press 'f' to get', (0, 255, 0))
+            game_world.remove_object(self)
+            play_mode.Player.grass_count += 1
