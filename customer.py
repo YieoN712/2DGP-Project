@@ -30,6 +30,7 @@ class Customer:
 
     def __init__(self):
         self.x, self.y = -80, 80
+        self.line_x = 0
         self.frame = 0
         self.font = load_font('ENCR10B.TTF', 16)
         self.image = load_image('image/customer.png')
@@ -40,7 +41,7 @@ class Customer:
         pass
 
     def update(self):
-        if self.x <= 550:
+        if self.x <= self.line_x:
             self.frame = (self.frame + FRAME_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAME_PER_ACTION
             self.x += RUN_SPEED_PPS * game_framework.frame_time
         # self.x = clamp(0, self.x, 550)

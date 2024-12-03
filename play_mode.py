@@ -44,6 +44,7 @@ def init():
     spacing = 100  # 손님 간 간격
     for i, customer in enumerate(customers):
         customer.x = start_x - (spacing * i)
+        customer.line_x = 550 - (80 * i)
         game_world.add_object(customer, 1)
 
     grasses = [Grass() for _ in range(5)]
