@@ -55,4 +55,3 @@ class Grass:
         if is_index_grass_1() and group == 'player:grass':
             self.font.draw(self.x - 25, self.y + 50, f'press 'f' to get', (0, 255, 0))
             game_world.remove_object(self)
-            play_mode.Player.grass_count += 1

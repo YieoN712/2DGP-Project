@@ -1,7 +1,6 @@
 import time
 
 from pico2d import  *
-import background as bg
 import game_framework
 import game_world
 from fire import Fire
@@ -189,6 +188,8 @@ class Player:
 
     def handle_collision(self, group, other):
         if is_index_p_1():
+            if group == 'player:grass':
+                self.grass_count += 1
             if group == 'sheep:player':
                 current_time = time.time()
                 if current_time - self.collision_time >= self.cooldown_collision:
