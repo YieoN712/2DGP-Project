@@ -5,6 +5,7 @@ import game_world
 import player as Player
 import background as BackGround
 import title_mode
+from customer import set_visibility_c, Customer
 from fire import set_index_fire
 from item import *
 from monster import *
@@ -31,6 +32,19 @@ def init():
     player = Player.Player(heart)
     game_world.add_object(player, 2)
     game_world.add_object(heart, 1)
+
+    # customer = Customer()
+    # game_world.add_object(customer, 1)
+
+    num_customers = random.randint(3, 8)  # 3~8명의 손님 랜덤 생성
+    customers = [Customer() for _ in range(num_customers)]
+
+    # 손님 줄 서기 (각 손님의 x 좌표를 일정 간격으로 설정)
+    start_x = -80
+    spacing = 100  # 손님 간 간격
+    for i, customer in enumerate(customers):
+        customer.x = start_x - (spacing * i)
+        game_world.add_object(customer, 1)
 
     grasses = [Grass() for _ in range(5)]
     game_world.add_objects(grasses, 1)
@@ -62,6 +76,7 @@ def finish():
 def update():
     bg = game_world.world[0][0]
     set_visibility(bg.current_index)
+    set_visibility_c(bg.current_index)
     set_index_fire(bg.current_index)
     set_index_player(bg.current_index)
     set_index_grass(bg.current_index)
