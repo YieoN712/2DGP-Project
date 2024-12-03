@@ -14,17 +14,29 @@ class BackGround:
     def draw(self):
         self.image[self.current_index].draw(1440 // 2, 482 // 2)
         if self.show_message and self.p.x >= 1440 - 70:
-            font = load_font('ENCR10B.TTF', 16)
+            font = load_font('ENCR10B.TTF', 20)
             font.draw(1340, 150, 'press f', (255, 255, 0))
         elif self.show_message and self.p.x <= 70:
-            font = load_font('ENCR10B.TTF', 16)
+            font = load_font('ENCR10B.TTF', 20)
             font.draw(30, 150, 'press f', (255, 255, 0))
+        elif self.show_message and self.p.x <= 1000 and self.p.x >= 900:
+            font = load_font('ENCR10B.TTF', 20)
+            font.draw(910, 150, 'press e', (230, 0, 255))
+        elif self.show_message and self.p.x <= 700 and self.p.x >= 650:
+            font = load_font('ENCR10B.TTF', 20)
+            font.draw(635, 150, 'press c', (230, 0, 255))
 
     def update(self):
         if self.p.x >= 1440 - 70 and self.current_index == 0:
             self.show_message = True
         elif self.p.x <= 70 and self.current_index == 1:
             self.show_message = True
+        elif self.p.x >= 900 and self.p.x <= 1000:
+            if self.current_index == 0:
+                self.show_message = True
+        elif self.p.x >= 650 and self.p.x <= 700:
+            if self.current_index == 0:
+                self.show_message = True
         else:
             self.show_message = False
 
