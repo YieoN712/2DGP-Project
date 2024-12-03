@@ -4,6 +4,7 @@ from pico2d import *
 import background
 import game_framework
 import game_world
+import player
 
 PIXEL_PER_METER = (10.0 / 0.5)
 RUN_SPEED_KMPH = 20.0
@@ -32,6 +33,7 @@ class Rabbit:
         self.frame = 0
         self.dir = random.choice([-1, 1])
         self.size = 100
+        self.p = player
 
     def update(self):
         self.frame = (self.frame + FRAME_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAME_PER_ACTION

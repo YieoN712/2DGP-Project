@@ -36,7 +36,7 @@ class Grass:
         self.x, self.y = randint(200, 1400), 75
         self.count = 5
         self.image = load_image('image/grass.png')
-        self.font = load_font('ENCR10B.TTF', 16)
+        self.font = load_font('ENCR10B.TTF', 17)
 
     def draw(self):
         if is_index_grass_1():

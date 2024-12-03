@@ -112,7 +112,8 @@ class Player:
     def __init__(self, h):
         self.x, self.y = 950, 75
         self.face_dir = -1
-        self.font = load_font('ENCR10B.TTF', 16)
+        self.font = load_font('ENCR10B.TTF', 17)
+        self.font2 = load_font('ENCR10B.TTF', 20)
         self.max_mana = 5
         self.mana = self.max_mana
         self.image = load_image('image/player.png')
@@ -136,6 +137,8 @@ class Player:
         self.heart = h
 
         self.grass_count = 0
+        self.meat_count = 0
+        self.money = 0
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
@@ -169,6 +172,9 @@ class Player:
             self.font.draw(self.x - 25, self.y + 50, f'mana:{self.mana:d}', (255, 255, 0))
         elif self.recharge_timer is not None:
             self.font.draw(self.x - 35, self.y + 50, f'RECHARGE', (0, 0, 255))
+
+        self.font2.draw(1100, 450, f'grass:{self.grass_count:d} | meat:{self.meat_count:d} | money:{self.money:d}', (230, 230, 230))
+
         # if self.state_machine.cur_state == Idle:
         #     draw_rectangle(*self.get_bb())
         # elif self.state_machine.cur_state == Sleep:
