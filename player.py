@@ -5,9 +5,9 @@ import background as bg
 import game_framework
 import game_world
 from fire import Fire
-from state_machine import StateMachine, time_out, space_down, right_down, left_up, left_down, right_up, start_event
+from state_machine import *
 
-PIXEL_PER_METER = (10.0 / 0.5)
+PIXEL_PER_METER = (20.0 / 0.5)
 RUN_SPEED_KMPH = 20.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = RUN_SPEED_MPM / 60.0
