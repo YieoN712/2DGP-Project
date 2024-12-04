@@ -4,7 +4,7 @@ from pico2d import *
 import background
 import game_framework
 import game_world
-import player
+from player import Player
 
 PIXEL_PER_METER = (10.0 / 0.5)
 RUN_SPEED_KMPH = 20.0
@@ -27,7 +27,7 @@ def is_visible():
     return _visible
 
 class Rabbit:
-    def __init__(self):
+    def __init__(self, player):
         self.x, self.y = random.randint(400, 1420), 75
         self.image = load_image('image/rabbit.png')
         self.frame = 0
@@ -70,10 +70,11 @@ class Rabbit:
             if group == 'rabbit:fire':
                 print("Rabbit hit by fire")
                 game_world.remove_object(self)
+                self.p.meat_count += 1
 
 
 class Sheep:
-    def __init__(self):
+    def __init__(self, player):
         self.x, self.y = random.randint(1420 - 950, 1420), 75
         self.image = load_image('image/sheep.png')
         self.frame = 0
@@ -81,6 +82,7 @@ class Sheep:
         self.dir = random.choice([-1, 1])
         self.size = 100
         self.alpha = 1.0
+        self.p = player
 
     def update(self):
         self.frame = (self.frame + FRAME_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAME_PER_ACTION
@@ -117,3 +119,4 @@ class Sheep:
             elif group == 'sheep:fire' and self.alpha == 0.5:
                 print("sheep hit by fire")
                 game_world.remove_object(self)
+                self.p.meat_count += 2

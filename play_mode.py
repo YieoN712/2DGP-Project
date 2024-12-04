@@ -1,3 +1,5 @@
+import random
+
 from pico2d import *
 import background
 import game_framework
@@ -29,7 +31,7 @@ def init():
     global player, heart
 
     heart = Heart()
-    player = Player.Player(heart)
+    player = Player(heart)
     game_world.add_object(player, 2)
     game_world.add_object(heart, 1)
 
@@ -47,13 +49,14 @@ def init():
         customer.line_x = 550 - (80 * i)
         game_world.add_object(customer, 1)
 
-    grasses = [Grass() for _ in range(5)]
+    num_grass = random.randint(5, 10)
+    grasses = [Grass() for _ in range(num_grass)]
     game_world.add_objects(grasses, 1)
 
-    sheeps = [Sheep() for _ in range(5)]
+    sheeps = [Sheep(player) for _ in range(5)]
     game_world.add_objects(sheeps, 2)
 
-    rabbits = [Rabbit() for _ in range(8)]
+    rabbits = [Rabbit(player) for _ in range(8)]
     game_world.add_objects(rabbits, 2)
 
     bg = BackGround.BackGround(player)
