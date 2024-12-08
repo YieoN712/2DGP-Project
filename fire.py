@@ -30,7 +30,7 @@ class Fire:
     def update(self):
         self.x += self.velocity
 
-        frame_speed = 0.5
+        frame_speed = 0.1
         self.frame = (self.frame + frame_speed) % self.total_frame
 
         if self.p - self.x > 250 or self.x - self.p > 250:

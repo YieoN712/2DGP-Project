@@ -17,7 +17,7 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAME_PER_ACTION = 4
 
-_visible = False
+# _visible = False
 
 def set_visibility(index):
     global _visible

@@ -1,9 +1,8 @@
 from pico2d import *
 
-import game_framework
 import game_world
-
-import play_mode
+from customer import trigger_customer
+from item import Item
 
 
 class BackGround:
@@ -19,7 +18,6 @@ class BackGround:
 
         self.panel_visible = False  # 패널 상태 변수
         self.selected_food = None  # 선택된 음식 변수
-        self.next_day = False
 
 
     def draw(self):
@@ -34,7 +32,7 @@ class BackGround:
         elif self.show_message and self.p.x <= 700 and self.p.x >= 650:
             font.draw(635, 150, 'press c', (230, 0, 255))
         elif self.show_message and self.p.x >= 400 and self.p.y <= 500:
-            font.draw(400, 160, 'press e to sell', (50, 50, 225))
+            font.draw(440, 160, 'press e', (50, 50, 225))
 
         if self.panel_visible:  # 패널
             self.panel.draw(720, 340)
@@ -44,11 +42,6 @@ class BackGround:
             panel_font.draw(580, 290, "1: Meat 2", (255, 255, 255))
             panel_font.draw(600, 420, f'steak: {self.p.food1:d}', (0, 0, 0))
             panel_font.draw(760, 420, f'burger: {self.p.food2:d}', (0, 0, 0))
-
-        font = load_font('ENCR10B.TTF', 20)
-        font.draw(20, 400, f'customer: {len(game_world.world[1])}',(200, 200, 200))
-        # font = load_font('ENCR10B.TTF', 30)
-        # font.draw(720, 750, f'Day {play_mode.current_day}', (255, 255, 255))
 
     def update(self):
         if self.p.x >= 1440 - 70 and self.current_index == 0:
@@ -69,7 +62,6 @@ class BackGround:
 
     def handle_event(self, event):
         if event.type == SDL_KEYDOWN:
-
             if event.key == SDLK_f and self.show_message:
                 self.current_index = (self.current_index + 1) % len(self.image)
                 if self.p.x <= 40:
@@ -85,9 +77,8 @@ class BackGround:
                     if self.p.grass_count >= 1 and self.p.meat_count >= 2:
                         self.p.grass_count -= 1
                         self.p.meat_count -= 2
-                        self.p.food2 += 1
+                        self.p.food1 += 1
                 elif event.key == SDLK_1:  # 2번 키로 음식 제작
                     if self.p.meat_count >= 2:
                         self.p.meat_count -= 2
-                        self.p.food1 += 1
-
+                        self.p.food2 += 1

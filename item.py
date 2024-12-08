@@ -1,4 +1,3 @@
-from operator import index
 from random import random, randint
 
 from pico2d import *
@@ -6,7 +5,6 @@ from pico2d import *
 import game_world
 import play_mode
 
-index_g = False
 
 def set_index_grass(index):
     global index_g
@@ -31,9 +29,6 @@ class Heart:
     def decrease_heart(self):
         if self.heart > 0:
             self.heart -= 1
-
-    def reset(self):
-        self.heart = 3
 
 
 class Grass:
