@@ -60,3 +60,17 @@ class Grass:
         if is_index_grass_1() and group == 'player:grass':
             self.font.draw(self.x - 25, self.y + 50, f'press 'f' to get', (0, 255, 0))
             game_world.remove_object(self)
+
+class Item:
+    def __init__(self):
+        self.x, self.y = 400, 150
+        self.image = {
+            load_image('image/food1.png'),
+            load_image('image/food2.png')
+        }
+
+    def draw(self):
+        self.image[0].draw(self.x, self.y)
+
+    def update(self):
+        pass
