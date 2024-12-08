@@ -1,4 +1,5 @@
 import random
+import time
 
 from pico2d import *
 import background
@@ -32,13 +33,17 @@ def init():
 
     heart = Heart()
     player = Player(heart)
+    game_world.add_object(heart, 3)
     game_world.add_object(player, 2)
-    game_world.add_object(heart, 1)
 
-    # customer = Customer()
-    # game_world.add_object(customer, 1)
+    bg = BackGround.BackGround(player)
+    game_world.add_object(bg, 0)
 
-    num_customers = random.randint(3, 8)  # 3~8명의 손님 랜덤 생성
+
+    customer = Customer()
+    game_world.add_object(customer, 1)
+
+    num_customers = random.randint(4, 7)  # 3~8명의 손님 랜덤 생성
     customers = [Customer() for _ in range(num_customers)]
 
     # 손님 줄 서기 (각 손님의 x 좌표를 일정 간격으로 설정)
@@ -48,19 +53,18 @@ def init():
         customer.x = start_x - (spacing * i)
         customer.line_x = 550 - (80 * i)
         game_world.add_object(customer, 1)
+        game_world.add_collision_pair('player:customer', player, customer)
+
 
     num_grass = random.randint(5, 10)
     grasses = [Grass() for _ in range(num_grass)]
-    game_world.add_objects(grasses, 1)
+    game_world.add_objects(grasses, 3)
 
     sheeps = [Sheep(player) for _ in range(5)]
     game_world.add_objects(sheeps, 2)
 
     rabbits = [Rabbit(player) for _ in range(8)]
     game_world.add_objects(rabbits, 2)
-
-    bg = BackGround.BackGround(player)
-    game_world.add_object(bg, 0)
 
     # collision
     for rabbit in rabbits:
@@ -78,13 +82,16 @@ def finish():
 
 
 def update():
-    bg = game_world.world[0][0]
+    global heart, player
 
-    set_visibility(bg.current_index)
-    set_visibility_c(bg.current_index)
-    set_index_fire(bg.current_index)
-    set_index_player(bg.current_index)
-    set_index_grass(bg.current_index)
+    if heart.heart <= 0:
+        bg = game_world.world[0][0]
+        set_visibility(bg.current_index)
+        set_visibility_c(bg.current_index)
+        set_index_fire(bg.current_index)
+        set_index_player(bg.current_index)
+        set_index_grass(bg.current_index)
+
 
     game_world.update()
     game_world.handle_collisions()
