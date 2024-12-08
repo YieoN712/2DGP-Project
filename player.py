@@ -3,6 +3,7 @@ import time
 from pico2d import  *
 import game_framework
 import game_world
+from customer import Customer
 from fire import Fire
 from state_machine import *
 
@@ -140,10 +141,17 @@ class Player:
         self.meat_count = 0
         self.money = 0
 
-        self.food1, self.food2 = 0, 0
+        self.food1, self.food2 = 5, 5
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
+
+        if event.type == SDL_KEYDOWN and event.key == SDLK_e:
+            # 주변 손님 확인
+            for obj in game_world.world[1]:  # 손님 레이어
+                if isinstance(obj, Customer):
+                    if self.is_near(obj) and not obj.received_food:
+                        self.sell_food(obj)
 
     def update(self):
         self.state_machine.update()
@@ -156,6 +164,19 @@ class Player:
             if get_time() - self.recharge_timer >= self.recharge_delay:
                 self.mana = self.max_mana  # 공 충전
                 self.recharge_timer = None
+
+    def is_near(self, customer):
+        return abs(self.x - customer.x) < 50 and abs(self.y - customer.y) < 50
+
+    def sell_food(self, customer):
+        if customer.food == 1 and self.food1 > 0:  # 음식 1 판매
+            self.food1 -= 1
+            self.money += 100
+            customer.received_food = True
+        elif customer.food == 2 and self.food2 > 0:  # 음식 2 판매
+            self.food2 -= 1
+            self.money += 250
+            customer.received_food = True
 
 
     def fire(self):
@@ -175,7 +196,7 @@ class Player:
         elif self.recharge_timer is not None:
             self.font.draw(self.x - 35, self.y + 50, f'RECHARGE', (0, 0, 255))
 
-        self.font2.draw(1100, 450, f'grass:{self.grass_count:d} | meat:{self.meat_count:d} | money:{self.money:d}', (230, 230, 230))
+        self.font2.draw(1000, 450, f'grass:{self.grass_count:d} | meat:{self.meat_count:d} | money:{self.money:d}', (230, 230, 230))
 
         # if self.state_machine.cur_state == Idle:
         #     draw_rectangle(*self.get_bb())

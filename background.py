@@ -1,7 +1,6 @@
 from pico2d import *
 
 import game_world
-from customer import trigger_customer
 from item import Item
 
 
@@ -31,8 +30,8 @@ class BackGround:
             font.draw(910, 210, 'press s', (0, 0, 190))
         elif self.show_message and self.p.x <= 700 and self.p.x >= 650:
             font.draw(635, 150, 'press c', (230, 0, 255))
-        elif self.show_message and self.p.x >= 400 and self.p.y <= 500:
-            font.draw(440, 160, 'press e', (50, 50, 225))
+        elif self.show_message and self.p.y <= 500:
+            font.draw(400, 160, 'press e to sell', (50, 50, 225))
 
         if self.panel_visible:  # 패널
             self.panel.draw(720, 340)
