@@ -86,8 +86,8 @@ class BackGround:
                     if self.p.grass_count >= 1 and self.p.meat_count >= 2:
                         self.p.grass_count -= 1
                         self.p.meat_count -= 2
-                        self.p.food1 += 1
+                        self.p.food2 += 1
                 elif event.key == SDLK_1:  # 2번 키로 음식 제작
                     if self.p.meat_count >= 2:
                         self.p.meat_count -= 2
-                        self.p.food2 += 1
+                        self.p.food1 += 1

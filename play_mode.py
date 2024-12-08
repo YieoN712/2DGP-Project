@@ -21,7 +21,12 @@ def reset_game():
     # 체력 회복 및 벌금 계산
     lost_health = heart.max_health - heart.heart
     if lost_health > 0:
-        player.money -= lost_health * 100
+        player.money -= lost_health * 50
+
+
+
+
+
     heart.heart = heart.max_health  # 체력 회복
 
     bg.reset_background()
