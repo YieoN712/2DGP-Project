@@ -55,7 +55,7 @@ class Customer:
         if is_visible_c():
             font = load_font('ENCR10B.TTF', 17)
             if not self.received_food:
-                font.draw(self.x - 30, self.y + 50, f'food: {self.food:d}', (55, 0, 0))
+                font.draw(self.x - 30, self.y + 70, f'food: {self.food:d}', (55, 0, 0))
                 self.image.clip_draw(int(self.frame % 4) * (284 // 4), 0, 284 // 4, 228 // 2, self.x, self.y, 90, 90)
             else:
                 self.image.clip_composite_draw(int(self.frame % 4) * (284 // 4), 0, 284 // 4, 228 // 2, 0, 'h', self.x,

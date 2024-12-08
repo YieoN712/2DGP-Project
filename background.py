@@ -2,6 +2,7 @@ from pico2d import *
 
 import game_world
 from item import Item
+import game_state
 
 
 class BackGround:
@@ -14,6 +15,9 @@ class BackGround:
         self.current_index = 0
         self.show_message = False
         self.p = player
+        self.bgm = load_music('sound/MP_맑은 아침 (Short).mp3')
+        self.bgm.set_volume(32)
+        self.bgm.repeat_play()
 
         self.panel_visible = False  # 패널 상태 변수
         self.selected_food = None  # 선택된 음식 변수
@@ -31,7 +35,7 @@ class BackGround:
         elif self.show_message and self.p.x <= 700 and self.p.x >= 650:
             font.draw(635, 150, 'press c', (230, 0, 255))
         elif self.show_message and self.p.y <= 500:
-            font.draw(400, 160, 'press e to sell', (50, 50, 225))
+            font.draw(400, 170, 'press e to sell', (50, 50, 225))
 
         if self.panel_visible:  # 패널
             self.panel.draw(720, 340)
@@ -41,6 +45,12 @@ class BackGround:
             panel_font.draw(580, 290, "1: Meat 2", (255, 255, 255))
             panel_font.draw(600, 420, f'steak: {self.p.food1:d}', (0, 0, 0))
             panel_font.draw(760, 420, f'burger: {self.p.food2:d}', (0, 0, 0))
+
+        font = load_font('ENCR10B.TTF', 30)
+        font.draw(720, 460, f'Day: {game_state.current_day}', (255, 255, 255))
+
+    def reset_background(self):
+        self.current_index = 0
 
     def update(self):
         if self.p.x >= 1440 - 70 and self.current_index == 0:

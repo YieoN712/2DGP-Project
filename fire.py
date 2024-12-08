@@ -25,12 +25,12 @@ class Fire:
             self.image.clip_draw(int(self.frame) * 102, 0, 102, 54, self.x, self.y - 10, 50, 50)
         else:
             self.image.clip_composite_draw(int(self.frame) * 102, 0, 102, 54, 0, 'h', self.x, self.y - 10, 50, 50)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def update(self):
         self.x += self.velocity
 
-        frame_speed = 0.5
+        frame_speed = 0.1
         self.frame = (self.frame + frame_speed) % self.total_frame
 
         if self.p - self.x > 250 or self.x - self.p > 250:

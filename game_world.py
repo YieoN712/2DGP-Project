@@ -78,3 +78,15 @@ def handle_collisions():
                     # print("collision")
                     a.handle_collision(group, b)
                     b.handle_collision(group, a)
+
+def all_objects():
+    for layer in world:
+        for obj in layer:
+            yield obj
+
+def objects_by_type(class_type):
+    result = []
+    for obj in all_objects():
+        if isinstance(obj, class_type):
+            result.append(obj)
+    return result

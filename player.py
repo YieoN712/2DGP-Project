@@ -2,6 +2,7 @@ import time
 
 from pico2d import  *
 import game_framework
+import game_state
 import game_world
 from customer import Customer
 from fire import Fire
@@ -141,7 +142,7 @@ class Player:
         self.meat_count = 0
         self.money = 0
 
-        self.food1, self.food2 = 5, 5
+        self.food1, self.food2 = 0, 0
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
@@ -172,10 +173,12 @@ class Player:
         if customer.food == 1 and self.food1 > 0:  # 음식 1 판매
             self.food1 -= 1
             self.money += 100
+            game_state.all_money += 100
             customer.received_food = True
         elif customer.food == 2 and self.food2 > 0:  # 음식 2 판매
             self.food2 -= 1
             self.money += 250
+            game_state.all_money += 250
             customer.received_food = True
 
 

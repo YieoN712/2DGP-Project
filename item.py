@@ -17,6 +17,7 @@ class Heart:
     def __init__(self):
         self.x, self.y = 40, 440
         self.heart = 3
+        self.max_health = 3
         self.image = load_image('image/heart.png')
 
     def draw(self):
@@ -53,8 +54,8 @@ class Grass:
 
     def handle_collision(self, group, other):
         if is_index_grass_1() and group == 'player:grass':
-            self.font.draw(self.x - 25, self.y + 50, f'press 'f' to get', (0, 255, 0))
-            game_world.remove_object(self)
+            if self in game_world.world[1]:
+                game_world.remove_object(self)
 
 class Item:
     def __init__(self):

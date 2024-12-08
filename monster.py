@@ -52,7 +52,7 @@ class Rabbit:
             else:
                 self.image.clip_draw(int(self.frame) * (504 // 4), 0, 126, 180,self.x, self.y, self.size, self.size)
 
-            draw_rectangle(*self.get_bb())
+            # draw_rectangle(*self.get_bb())
 
     def handle_event(self, event):
         pass
@@ -69,8 +69,9 @@ class Rabbit:
         if is_visible():
             if group == 'rabbit:fire':
                 print("Rabbit hit by fire")
-                game_world.remove_object(self)
-                self.p.meat_count += 1
+                if self in game_world.all_objects():
+                    game_world.remove_object(self)
+                    self.p.meat_count += 1
 
 
 class Sheep:
@@ -102,7 +103,7 @@ class Sheep:
             else:
                 self.image.clip_draw(int(self.frame) * (320 // 4), 0, (320 // 4), 80,self.x, self.y, self.size, self.size)
 
-            draw_rectangle(*self.get_bb())
+            # draw_rectangle(*self.get_bb())
 
     def handle_event(self, event):
         pass
@@ -118,5 +119,6 @@ class Sheep:
                 self.speed = 0.3
             elif group == 'sheep:fire' and self.alpha == 0.5:
                 print("sheep hit by fire")
-                game_world.remove_object(self)
-                self.p.meat_count += 2
+                if self in game_world.all_objects():
+                    game_world.remove_object(self)
+                    self.p.meat_count += 2
