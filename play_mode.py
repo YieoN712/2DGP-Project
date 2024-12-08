@@ -79,6 +79,7 @@ def finish():
 
 def update():
     bg = game_world.world[0][0]
+
     set_visibility(bg.current_index)
     set_visibility_c(bg.current_index)
     set_index_fire(bg.current_index)

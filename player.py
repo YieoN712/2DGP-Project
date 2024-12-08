@@ -140,6 +140,8 @@ class Player:
         self.meat_count = 0
         self.money = 0
 
+        self.food1, self.food2 = 0, 0
+
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
 

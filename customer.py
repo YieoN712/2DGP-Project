@@ -34,6 +34,7 @@ class Customer:
         self.frame = 0
         self.font = load_font('ENCR10B.TTF', 17)
         self.image = load_image('image/customer.png')
+        self.number = 0
 
         self.food = random.randint(0, 1)
 
@@ -49,8 +50,11 @@ class Customer:
         if is_visible_c():
             self.image.clip_draw(int(self.frame % 4) * (284 // 4), 0, 284 // 4, 228 // 2,self.x, self.y, 90, 90)
 
+        self.font.draw(20, 400, f'customer: {self.number:d}',(200, 200, 200))
+
     def get_bb(self):
         pass
 
     def handle_collision(self, group, other):
         pass
+
